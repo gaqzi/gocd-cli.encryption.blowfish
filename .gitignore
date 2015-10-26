@@ -1,0 +1,9 @@
+*.egg-info
+*.pyc
+.eggs
+.coverage
+build
+dist
+.tox
+README.html
+CHANGELOG.html
