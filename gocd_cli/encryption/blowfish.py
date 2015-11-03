@@ -3,9 +3,6 @@ from random import getrandbits
 from struct import pack
 import base64
 
-from Crypto.Cipher import Blowfish
-from Crypto.Util.number import long_to_bytes
-
 __version__ = '1.0'
 
 
@@ -54,6 +51,9 @@ def _encrypt(plaintext, password):
       str: base64 encoded string.
         The decoded string format is "{iv}{ciphertext}"
     """
+    from Crypto.Cipher import Blowfish
+    from Crypto.Util.number import long_to_bytes
+
     # Copy+paste security! Except I use another source for random,
     # because I've to support PyCrypto 2.0.1.
     # https://www.dlitz.net/software/pycrypto/api/current/Crypto.Cipher.Blowfish-module.html
@@ -77,6 +77,7 @@ def _decrypt(base64_ciphertext, password):
     Returns:
       str: The original plaintext
     """
+    from Crypto.Cipher import Blowfish
 
     decodestring = base64.decodestring(base64_ciphertext)
     iv, ciphertext = decodestring[0:Blowfish.block_size], decodestring[Blowfish.block_size:]
