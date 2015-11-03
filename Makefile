@@ -51,4 +51,7 @@ upload-package: test lint clean
 	twine upload dist/*
 
 rpm: clean
-	python setup.py bdist_rpm --requires 'Python(gocd-cli) >= 0.9, python-crypto'
+	# Have all namespaces defined, otherwise the installed RPM will not function
+	mkdir -p gocd_cli/commands && \
+		cp gocd_cli/encryption/__init__.py gocd_cli/commands/__init__.py
+	python setup.py bdist_rpm --requires 'python(gocd-cli) >= 0.9, python-crypto'
